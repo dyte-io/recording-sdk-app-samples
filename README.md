@@ -45,7 +45,7 @@ Here are steps to try out the samples:
 1. Clone the repo:
 
 ```sh
-git clone git@github.com:dyte-io/recording-app-samples.git
+git clone git@github.com:dyte-io/recording-sdk-app-samples.git
 ```
 
 2. Change directory to the sample you want to try, for example: to use recording-with-watermark react-sample use the following command:
