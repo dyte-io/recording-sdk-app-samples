@@ -8,15 +8,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dytesdk/react-ui-kit": "^1.43.1",
-    "@dytesdk/react-web-core": "^1.20.1",
+    "@dyteinternals/utils": "^3.0.0",
+    "@dytesdk/react-ui-kit": "1.70.2",
+    "@dytesdk/react-web-core": "1.36.14",
     "@dytesdk/recording-sdk": "^1.1.0-staging.3",
+    "axios": "^1.7.3",
     "clsx": "^1.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.3.0",
     "react-draggable": "^4.4.5",
     "react-feather": "^2.0.10",
+    "react-router-dom": "^6.3.0",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
