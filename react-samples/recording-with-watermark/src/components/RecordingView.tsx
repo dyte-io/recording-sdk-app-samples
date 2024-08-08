@@ -68,9 +68,9 @@ export default function UIKitMeeting(props: {
                     audio: false,
                     video: false,
                 },
-                apiBase: apiBase ?? 'https://api.cluster.dyte.in',
+                apiBase: apiBase ?? 'https://api.dyte.io',
             });
-            await recordingSDK.init(meetingObj);
+            await recordingSDK.init(meetingObj!);
         }
         setupDyteMeeting();
 
@@ -79,13 +79,6 @@ export default function UIKitMeeting(props: {
     useEffect(() => {
         if (client !== undefined) {
             let uiKitConfig = defaultUIConfig as UIConfig;
-
-            try {
-                const presetConfig = client.self.suggestedTheme;
-                uiKitConfig = generateConfig(presetConfig).config;
-            } catch (error) {
-                uiKitConfig = defaultUIConfig as UIConfig;
-            }
 
             if (client.__internals__.features.hasFeature('video_subscription_override')) {
                 console.log('enbale video subscription override');
