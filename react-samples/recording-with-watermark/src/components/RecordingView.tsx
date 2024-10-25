@@ -44,12 +44,11 @@ const defaultUIConfig = {
 }
 
 export default function UIKitMeeting(props: {
-    roomName: string;
     authToken: string;
     config: MeetingConfig;
-    apiBase: string | null;
+    baseURI: string | null;
 }) {
-    const { roomName, authToken, config, apiBase } = props;
+    const { authToken, config, baseURI } = props;
     const [uiconfig, setuiconfig] = useState<UIConfig | null>(null);
     const [client, initClient] = useDyteClient();
     const [overrides, setOverrides] = useState({});
@@ -62,13 +61,12 @@ export default function UIKitMeeting(props: {
         async function setupDyteMeeting(){
             const recordingSDK = new DyteRecording({ });
             const meetingObj = await initClient({
-                roomName,
                 authToken,
                 defaults: {
                     audio: false,
                     video: false,
                 },
-                apiBase: apiBase ?? 'https://api.dyte.io',
+                baseURI: baseURI ?? 'dyte.io',
             });
             await recordingSDK.init(meetingObj!);
         }
