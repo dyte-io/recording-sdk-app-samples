@@ -10,9 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dytesdk/react-ui-kit": "^1.70.0",
-    "@dytesdk/react-web-core": "^1.36.12",
-    "@dytesdk/recording-sdk": "^1.1.0",
+    "@dytesdk/react-ui-kit": "^2.0.5",
+    "@dytesdk/react-web-core": "^2.1.9",
+    "@dytesdk/recording-sdk": "2.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },

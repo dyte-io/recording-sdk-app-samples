@@ -32,18 +32,12 @@ function RecordingPage() {
 
   const roomName = useParams()?.roomName || searchParams.get("roomName") as string;
   const authToken = searchParams.get('authToken') as string;
-  let apiBase = searchParams.get('apiBase');
-
-  if (apiBase) {
-    if (!apiBase.startsWith("https://")){
-      apiBase = `https://${apiBase}`
-    }
-  }
+  let baseURI = searchParams.get('baseURI');
 
   useEffect(() => {
 
     const initializeFlagsmith = async (roomName: string, authToken: string) => {
-      const controller = new FlagsmithController(authToken, roomName , apiBase);
+      const controller = new FlagsmithController(authToken, baseURI);
 
       try {
         await controller.init();
@@ -55,7 +49,7 @@ function RecordingPage() {
     if (authToken) {
       initializeFlagsmith(roomName, authToken);
     }
-  }, [roomName, authToken, setFlagsmith , apiBase]);
+  }, [roomName, authToken, setFlagsmith , baseURI]);
 
   useEffect(() => {
     if (flagsmith === null) {
@@ -115,7 +109,7 @@ function RecordingPage() {
             roomName={roomName}
             authToken={authToken}
             config={config}
-            apiBase={apiBase}
+            baseURI={baseURI}
           />
 
       {

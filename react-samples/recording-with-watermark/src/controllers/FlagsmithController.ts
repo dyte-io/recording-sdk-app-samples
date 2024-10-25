@@ -18,39 +18,35 @@ export enum FlagsmithFeatureFlags {
 
 export default class FlagsmithController {
     requests: AxiosInstance;
-    roomName: string;
     organizationId!: string;
     participantId!: string;
+    meetingId!: string;
+    authToken!: string;
 
 
-    constructor(authToken: string, roomName: string , apiBase: string | null) {
+    constructor(authToken: string, baseURI: string | null) {
+        const { meetingId } = JSON.parse(atob(this.authToken.split('.')[1]));
         this.requests = axios.create({
-            baseURL: apiBase ?? 'https://api.cluster.dyte.in',
+            baseURL: baseURI? `https://api.${baseURI}`: 'https://api.dyte.io',
             timeout: 5000,
             headers: {
                 Authorization: `Bearer ${authToken}`,
             },
         });
-        this.roomName = roomName;
+        this.authToken = authToken;
+        this.meetingId = meetingId;
     }
 
     async init() {
-        if (!this.roomName) {
-            // V2 Meeting
-            const res = await this.requests.get('/v2/internals/participant-details');
-            this.organizationId = res?.data?.data?.participant?.organization_id;
-            this.participantId = res?.data?.data?.participant?.id;
-
-        } else {
-            // V1 Meeting
-            const res = await this.requests.get('/auth/basicUserDetails');
-            this.organizationId = res?.data?.user?.organizationId;
-            this.participantId = res?.data?.user?.id;
-        }
+        
+        
+        const res = await this.requests.get('/v2/internals/participant-details');
+        this.organizationId = res?.data?.data?.participant?.organization_id;
+        this.participantId = res?.data?.data?.participant?.id;
 
         const randomString = Math.random().toString(36).substring(2,7);
         await flagsmith.identify(`recorder_${this.participantId}_${randomString}`, {
-            roomName: this.roomName,
+            roomName: this.meetingId,
             organizationId: this.organizationId,
         });
     }
