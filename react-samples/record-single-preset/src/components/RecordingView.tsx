@@ -61,6 +61,7 @@ export default function RecordingView() {
         />
       ) : (
         <DyteSimpleGrid
+          meeting={meeting}
           participants={targetParticipants}
           style={{
             width: "100vw",

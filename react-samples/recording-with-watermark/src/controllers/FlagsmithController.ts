@@ -25,7 +25,7 @@ export default class FlagsmithController {
 
 
     constructor(authToken: string, baseURI: string | null) {
-        const { meetingId } = JSON.parse(atob(this.authToken.split('.')[1]));
+        const { meetingId } = JSON.parse(atob(authToken.split('.')[1]));
         this.requests = axios.create({
             baseURL: baseURI? `https://api.${baseURI}`: 'https://api.dyte.io',
             timeout: 5000,
