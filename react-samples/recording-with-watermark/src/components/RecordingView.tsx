@@ -44,12 +44,11 @@ const defaultUIConfig = {
 }
 
 export default function UIKitMeeting(props: {
-    roomName: string;
     authToken: string;
     config: MeetingConfig;
     baseURI: string | null;
 }) {
-    const { roomName, authToken, config, baseURI } = props;
+    const { authToken, config, baseURI } = props;
     const [uiconfig, setuiconfig] = useState<UIConfig | null>(null);
     const [client, initClient] = useDyteClient();
     const [overrides, setOverrides] = useState({});

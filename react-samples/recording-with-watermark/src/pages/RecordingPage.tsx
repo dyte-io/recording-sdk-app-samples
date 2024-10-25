@@ -30,13 +30,12 @@ function RecordingPage() {
   const [config, setConfig] = useState<MeetingConfig | null>(null);
   const [flagsmith, setFlagsmith] = useState<FlagsmithController | null>(null);
 
-  const roomName = useParams()?.roomName || searchParams.get("roomName") as string;
   const authToken = searchParams.get('authToken') as string;
   let baseURI = searchParams.get('baseURI');
 
   useEffect(() => {
 
-    const initializeFlagsmith = async (roomName: string, authToken: string) => {
+    const initializeFlagsmith = async (authToken: string) => {
       const controller = new FlagsmithController(authToken, baseURI);
 
       try {
@@ -47,9 +46,9 @@ function RecordingPage() {
       setFlagsmith(controller);
     };
     if (authToken) {
-      initializeFlagsmith(roomName, authToken);
+      initializeFlagsmith(authToken);
     }
-  }, [roomName, authToken, setFlagsmith , baseURI]);
+  }, [authToken, setFlagsmith , baseURI]);
 
   useEffect(() => {
     if (flagsmith === null) {
@@ -106,7 +105,6 @@ function RecordingPage() {
   return (
     <>
       <RecordingView 
-            roomName={roomName}
             authToken={authToken}
             config={config}
             baseURI={baseURI}
