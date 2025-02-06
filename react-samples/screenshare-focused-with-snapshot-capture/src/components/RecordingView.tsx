@@ -93,7 +93,7 @@ export default function RecordingView() {
         }, +import.meta.env.VITE_THUMBNAIL_TIME_INTERVAL);
 
         return () => {
-            clearTimeout(intervalId);
+            clearInterval(intervalId);
         }
     }, [meeting]);
 
