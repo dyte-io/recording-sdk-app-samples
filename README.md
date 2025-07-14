@@ -1,17 +1,18 @@
-# Dyte Recording App Samples 
+# RealtimeKit SDK Recording App Samples 
 
-This repository consists of recording sample apps created using Dyte's Recording SDK, our Core SDKs, and, fully customizeable UI kits.
+This repository consists of recording sample apps created using RealtimeKit Recording SDK, our Core SDKs, and, fully customizeable UI kits.
 
-Guide: https://docs.dyte.io/guides/recording/create-record-app-using-sdks
+Guide: https://docs.realtime.cloudflare.com/guides/recording/create-record-app-using-sdks
 
 ## Samples
 
-Here are the list of available samples at the moment.
+Here are a few available samples.
 
 1. React samples
-  A. recording-with-watermark
-  B. screenshare-focused
-  - Recording app samples created using React.
+  A. recording-with-watermark <br>
+  B. screenshare-focused <br>
+  C. screenshare-focused-with-snapshot-capture <br>
+  D. record-single-preset <br>
 
 ## Usage
 
@@ -19,19 +20,19 @@ To use these samples you would need to do the following steps:
 
 First, you'll need to create a meeting and add a participant to that meeting.
 
-You can do so by going to https://docs.dyte.io/api?v=v2 and run the APIs in the
+You can do so by going to https://docs.realtime.cloudflare.com/api?v=v2 and run the APIs in the
 API runner itself so you can quickly get started.
 
-Make sure you've created your Dyte account at https://dev.dyte.io and have your
+Make sure you've created your RealtimeKit account at https://dev.realtime.cloudflare.com and have your
 `Organization ID` and `API Key` ready to use from the
-[API Keys section](https://dev.dyte.io/apikeys).
+[API Keys section](https://dev.realtime.cloudflare.com/apikeys).
 
 1. Go to
-   [Create Meeting API](https://docs.dyte.io/api/?v=v2#/operations/create_meeting)
+   [Create Meeting API](https://docs.realtime.cloudflare.com/api/?v=v2#/operations/create_meeting)
    and add your credentials and run the API with your request body, note the
    `id` you receive in resonse, this is the meeting id.
 2. Go to
-   [Add Participant API](https://docs.dyte.io/api/?v=v2#/operations/add_participant)
+   [Add Participant API](https://docs.realtime.cloudflare.com/api/?v=v2#/operations/add_participant)
    and add a participant to the meeting with the `meetingId` you received in
    previous API call.
 

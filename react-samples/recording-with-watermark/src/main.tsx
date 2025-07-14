@@ -4,22 +4,22 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import Meeting from './pages/RecordingPage';
 import reportWebVitals from './reportWebVitals';
-import DyteClient from "@dytesdk/web-core";
+import RealtimeKitClient from "@cloudflare/realtimekit";
 
 
 declare global {
   interface Window {
-      triggerDyteRecording: boolean;
-      dyteRecording?: {
+      triggerRealtimeKitRecording: boolean;
+      realtimeKitRecording?: {
           getParticipantCount: () => number;
           isMeetingEnded: () => boolean;
           isMeetingJoined: () => boolean;
-          getMeeting: () => DyteClient;
+          getMeeting: () => RealtimeKitClient;
       }
   }
 }
 
-window.triggerDyteRecording = true;
+window.triggerRealtimeKitRecording = true;
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

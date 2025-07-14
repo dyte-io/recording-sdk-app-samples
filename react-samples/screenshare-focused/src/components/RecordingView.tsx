@@ -1,21 +1,21 @@
-import { DyteAvatar, DyteParticipantsAudio, DyteParticipantTile, DyteScreenshareView } from "@dytesdk/react-ui-kit";
-import { useDyteMeeting, useDyteSelector } from "@dytesdk/react-web-core";
+import { RtkAvatar, RtkParticipantsAudio, RtkParticipantTile, RtkScreenshareView } from "@cloudflare/realtimekit-react-ui";
+import { useRealtimeKitMeeting, useRealtimeKitSelector } from "@cloudflare/realtimekit-react";
 import { useState } from "react";
 
 export default function RecordingView() {
-    const { meeting } = useDyteMeeting();
+    const { meeting } = useRealtimeKitMeeting();
 
     const [size] = useState({ height: '120px', width: '120px' });
 
-    const activeParticipants = useDyteSelector((meeting) =>
+    const activeParticipants = useRealtimeKitSelector((meeting) =>
         meeting.participants.active.toArray()
     );
 
-    const pinnedParticipants = useDyteSelector((meeting) =>
+    const pinnedParticipants = useRealtimeKitSelector((meeting) =>
         meeting.participants.pinned.toArray()
     );
 
-    const screensharedParticipants = useDyteSelector((meeting) =>
+    const screensharedParticipants = useRealtimeKitSelector((meeting) =>
         meeting.participants.joined.toArray().filter((p) => p.screenShareEnabled)
     );
 
@@ -41,7 +41,7 @@ export default function RecordingView() {
         }}
     >
         {hasScreenshare && (
-            <DyteScreenshareView
+            <RtkScreenshareView
                 meeting={meeting}
                 participant={screensharedParticipants[0]}
                 hideFullScreenButton={true}
@@ -69,7 +69,7 @@ export default function RecordingView() {
                         key={participant.id}
                         style={{ ...size, borderRadius: "9999px" }}
                     >
-                        <DyteParticipantTile
+                        <RtkParticipantTile
                             participant={participant}
                             key={participant.id}
                             style={{
@@ -79,12 +79,12 @@ export default function RecordingView() {
                                 borderWidth: "1px",
                             }}
                         >
-                            <DyteAvatar participant={participant} />
-                        </DyteParticipantTile>
+                            <RtkAvatar participant={participant} />
+                        </RtkParticipantTile>
                     </div>
                 );
             })}
         </div>
-        <DyteParticipantsAudio meeting={meeting} />
+        <RtkParticipantsAudio meeting={meeting} />
     </main>)
 }
