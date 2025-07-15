@@ -1,17 +1,17 @@
 import {
-  DyteMixedGrid,
-  DyteParticipantsAudio,
-  DyteSimpleGrid,
-} from "@dytesdk/react-ui-kit";
-import { useDyteMeeting, useDyteSelector } from "@dytesdk/react-web-core";
+  RtkMixedGrid,
+  RtkParticipantsAudio,
+  RtkSimpleGrid,
+} from "@cloudflare/realtimekit-react-ui";
 import { useEffect } from "react";
+import { useRealtimeKitMeeting, useRealtimeKitSelector } from "@cloudflare/realtimekit-react";
 
 const TARGET_PRESET = "LEAD";
 
 export default function RecordingView() {
-  const { meeting } = useDyteMeeting();
+  const { meeting } = useRealtimeKitMeeting();
 
-  const joinedParticipants = useDyteSelector((meeting) =>
+  const joinedParticipants = useRealtimeKitSelector((meeting) =>
     meeting.participants.joined.toArray()
   );
 
@@ -19,7 +19,7 @@ export default function RecordingView() {
     (participant) => participant.presetName === TARGET_PRESET
   );
 
-  const screensharedParticipants = useDyteSelector((meeting) =>
+  const screensharedParticipants = useRealtimeKitSelector((meeting) =>
     meeting.participants.joined.toArray().filter((p) => p.screenShareEnabled)
   );
 
@@ -48,7 +48,7 @@ export default function RecordingView() {
       }}
     >
       {hasScreenshare ? (
-        <DyteMixedGrid
+        <RtkMixedGrid
           participants={targetParticipants}
           pinnedParticipants={targetParticipants}
           screenShareParticipants={screensharedParticipants}
@@ -60,7 +60,7 @@ export default function RecordingView() {
           }}
         />
       ) : (
-        <DyteSimpleGrid
+        <RtkSimpleGrid
           meeting={meeting}
           participants={targetParticipants}
           style={{
@@ -70,7 +70,7 @@ export default function RecordingView() {
         />
       )}
 
-      <DyteParticipantsAudio meeting={meeting} />
+      <RtkParticipantsAudio meeting={meeting} />
     </main>
   );
 }

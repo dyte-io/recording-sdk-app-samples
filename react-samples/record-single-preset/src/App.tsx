@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { DyteProvider, useDyteClient } from "@dytesdk/react-web-core";
+import { RealtimeKitProvider, useRealtimeKitClient } from "@cloudflare/realtimekit-react";
 import RecordingView from "./components/RecordingView";
-import { DyteRecording } from "@dytesdk/recording-sdk";
+import { RealtimeKitRecording } from "@cloudflare/realtimekit-recording-sdk";
 
 function App() {
-  const [meeting, initMeeting] = useDyteClient();
+  const [meeting, initMeeting] = useRealtimeKitClient();
 
   useEffect(() => {
-    async function setupDyteMeeting(){
+    async function setupRealtimeKitMeeting(){
       const searchParams = new URL(window.location.href).searchParams;
   
       const authToken = searchParams.get("authToken");
@@ -21,7 +21,7 @@ function App() {
   
       const baseURI = searchParams.get('baseURI');
   
-      const recordingSDK = new DyteRecording({ });
+      const recordingSDK = new RealtimeKitRecording({ });
       const meetingObj = await initMeeting({
         authToken,
         defaults: {
@@ -36,7 +36,7 @@ function App() {
       await recordingSDK.init(meetingObj);
     }
     if(!meeting){
-      setupDyteMeeting();
+      setupRealtimeKitMeeting();
     }
   }, [meeting]);
 
@@ -46,9 +46,9 @@ function App() {
   // To avoid that and to make it fill a parent container, pass the prop:
   // `mode="fill"` to the component.
   return (
-    <DyteProvider value={meeting} fallback={<div>Loading...</div>}>
+    <RealtimeKitProvider value={meeting} fallback={<div>Loading...</div>}>
       <RecordingView />
-    </DyteProvider>
+    </RealtimeKitProvider>
   );
 }
 

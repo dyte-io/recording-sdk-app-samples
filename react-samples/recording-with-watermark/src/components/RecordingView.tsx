@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { DyteProvider, useDyteClient } from "@dytesdk/react-web-core";
-import { DyteGrid, DyteParticipantsAudio, DyteSpinner, defaultConfig } from "@dytesdk/react-ui-kit";
+import { RealtimeKitProvider, useRealtimeKitClient } from "@cloudflare/realtimekit-react";
+import { RtkGrid, RtkParticipantsAudio, RtkSpinner, defaultConfig } from "@cloudflare/realtimekit-react-ui";
 import {
     generateConfig,
-    provideDyteDesignSystem,
+    provideRtkDesignSystem,
     UIConfig,
-} from "@dytesdk/ui-kit";
+} from "@cloudflare/realtimekit-ui";
 import { MeetingConfig } from "../types";
 
-import { DyteRecording } from "@dytesdk/recording-sdk";
+import { RealtimeKitRecording } from "@cloudflare/realtimekit-recording-sdk";
 
 const defaultUIConfig = {
     ...defaultConfig,
@@ -50,7 +50,7 @@ export default function UIKitMeeting(props: {
 }) {
     const { authToken, config, baseURI } = props;
     const [uiconfig, setuiconfig] = useState<UIConfig | null>(null);
-    const [client, initClient] = useDyteClient();
+    const [client, initClient] = useRealtimeKitClient();
     const [overrides, setOverrides] = useState({});
     const elementRef = useRef(null);
 
@@ -58,8 +58,8 @@ export default function UIKitMeeting(props: {
         if(!authToken){
             return;
         }
-        async function setupDyteMeeting(){
-            const recordingSDK = new DyteRecording({ });
+        async function setupRealtimeKitMeeting(){
+            const recordingSDK = new RealtimeKitRecording({ });
             const meetingObj = await initClient({
                 authToken,
                 defaults: {
@@ -70,7 +70,7 @@ export default function UIKitMeeting(props: {
             });
             await recordingSDK.init(meetingObj!);
         }
-        setupDyteMeeting();
+        setupRealtimeKitMeeting();
 
     }, [authToken]);
 
@@ -93,15 +93,15 @@ export default function UIKitMeeting(props: {
             }
 
             if (uiKitConfig.root) {
-                uiKitConfig.root["dyte-mixed-grid"] = {
+                uiKitConfig.root["rtk-mixed-grid"] = {
                     states: ["activeSpotlight"],
                     children: [
-                        ["dyte-simple-grid", { style: { width: "15%" } }],
+                        ["rtk-simple-grid", { style: { width: "15%" } }],
                     ],
                 };
 
-                uiKitConfig.root["dyte-mixed-grid.activeSpotlight"] = [
-                    ["dyte-spotlight-grid", { style: { width: "15%" }, layout: "column" }],
+                uiKitConfig.root["rtk-mixed-grid.activeSpotlight"] = [
+                    ["rtk-spotlight-grid", { style: { width: "15%" }, layout: "column" }],
                 ];
             }
             setuiconfig(uiKitConfig);
@@ -110,7 +110,7 @@ export default function UIKitMeeting(props: {
 
     useEffect(() => {
         if (elementRef.current && uiconfig && uiconfig.designTokens) {
-            provideDyteDesignSystem(elementRef.current, uiconfig.designTokens);
+            provideRtkDesignSystem(elementRef.current, uiconfig.designTokens);
         }
     }, [elementRef, uiconfig]);
 
@@ -122,7 +122,7 @@ export default function UIKitMeeting(props: {
                 alignItems: "center",
                 height: "100vh",
             }}>
-                <DyteSpinner />
+                <RtkSpinner />
             </div>
         );
     }
@@ -133,16 +133,16 @@ export default function UIKitMeeting(props: {
                 width: "100vw",
                 height: "100vh",
                 backgroundColor:
-                    "rgba(var(--dyte-colors-background-1000, 8 8 8))",
+                    "rgba(var(--rtk-colors-background-1000, 8 8 8))",
             }}
             ref={elementRef}
         >
-            <DyteGrid
+            <RtkGrid
                 config={uiconfig}
                 meeting={client}
                 overrides={overrides}
             />
-            <DyteParticipantsAudio meeting={client} />
+            <RtkParticipantsAudio meeting={client} />
         </div>
     );
 }
