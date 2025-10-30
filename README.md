@@ -1,5 +1,7 @@
 # RealtimeKit SDK Recording App Samples 
 
+> The contents of this repository have been moved to [cloudflare/realtimekit-web-examples](https://github.com/cloudflare/realtimekit-web-examples). Future updates and maintenance will continue there.
+
 This repository consists of recording sample apps created using RealtimeKit Recording SDK, our Core SDKs, and, fully customizeable UI kits.
 
 Guide: https://docs.realtime.cloudflare.com/guides/recording/create-record-app-using-sdks
